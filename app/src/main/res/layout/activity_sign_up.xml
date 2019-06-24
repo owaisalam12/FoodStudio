@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".Activity.SignUpActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+
+        >
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/fslogoly" />
+
+        <EditText
+            android:id="@+id/input_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_edit"
+            android:drawableLeft="@drawable/ic_person"
+            android:drawablePadding="5dp"
+            android:hint="Name"
+            android:inputType="textCapSentences"
+            android:singleLine="true"
+            android:textColor="@color/offwhite" />
+
+
+        <EditText
+            android:id="@+id/input_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_edit"
+            android:drawableLeft="@drawable/ic_mail"
+            android:drawablePadding="5dp"
+
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/offwhite" />
+        <EditText
+            android:id="@+id/input_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_edit"
+            android:drawableLeft="@drawable/ic_lock"
+            android:drawablePadding="5dp"
+
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textColor="@color/offwhite" />
+        <com.hbb20.CountryCodePicker
+            android:id="@+id/ccp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:ccp_defaultNameCode="pk"
+            app:ccp_showFlag="false"
+            app:ccp_showNameCode="false" />
+
+        <EditText
+            android:id="@+id/input_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_edit"
+            android:drawableLeft="@drawable/ic_smartphone"
+
+            android:drawablePadding="5dp"
+            android:hint="Mobile Number"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:singleLine="true"
+            android:textColor="@color/offwhite" />
+
+        <!--<EditText-->
+            <!--android:id="@+id/input_selectImage"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:background="@drawable/bg_edit"-->
+            <!--android:drawableLeft="@drawable/ic_image"-->
+            <!--android:drawablePadding="5dp"-->
+            <!--android:hint="Select Image"-->
+            <!--android:inputType="none"-->
+            <!--android:maxLength="11"-->
+            <!--android:singleLine="true"-->
+            <!--android:focusableInTouchMode="false"-->
+            <!--android:textColor="@color/offwhite" />-->
+        <Button
+            android:id="@+id/sendCodeButton"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/round_button"
+            android:text="send code"
+            android:textColor="@color/colorPrimaryDark" />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "174025102061",
+    "firebase_url": "https://foodstudio-4d2c9.firebaseio.com",
+    "project_id": "foodstudio-4d2c9",
+    "storage_bucket": "foodstudio-4d2c9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:174025102061:android:1e15591a271d0336",
+        "android_client_info": {
+          "package_name": "com.core2plus.oalam.foodstudio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "174025102061-sub4ojrekqokvd350h8694ekn2qjjd6v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.core2plus.oalam.foodstudio",
+            "certificate_hash": "8c855714ae7e2924b10ddef05e498b11a3fd2be9"
+          }
+        },
+        {
+          "client_id": "174025102061-0p3oumeao4csaac896rbuqbeebpjknl5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhru_JhHTl8i9Is-KsvfR3UlmwY955C78"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "174025102061-0p3oumeao4csaac896rbuqbeebpjknl5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
