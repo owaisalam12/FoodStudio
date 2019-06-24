@@ -48,7 +48,7 @@ public class EditProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
         setHasOptionsMenu(true);
-       // circleImageView = view.findViewById(R.id.editProfileImgage);
+        // circleImageView = view.findViewById(R.id.editProfileImgage);
         //toolbar=view.findViewById(R.id.my_toolbar);
 //        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Edit Profile");

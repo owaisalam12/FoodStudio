@@ -18,13 +18,13 @@ public interface API {
 
     @FormUrlEncoded
     @POST("?fx=insertuser")
-    Call<InsertResponse> insertdata(@Field("userid") String user_id,@Field("name") String name, @Field("email") String email,@Field("password") String password,
-                                    @Field("phone") String phone,@Field("createdDtm") String createdDtm);
+    Call<InsertResponse> insertdata(@Field("userid") String user_id, @Field("name") String name, @Field("email") String email, @Field("password") String password,
+                                    @Field("phone") String phone, @Field("createdDtm") String createdDtm);
 
     @FormUrlEncoded
     @POST("?fx=insertpurchase")
-    Call<InsertResponse> insertpurchase(@Field("userid") String user_id,@Field("img_url") String img_url, @Field("purchaseTime") String purchaseTime,
-                                    @Field("blockTime") String blockTime);
+    Call<InsertResponse> insertpurchase(@Field("userid") String user_id, @Field("img_url") String img_url, @Field("purchaseTime") String purchaseTime,
+                                        @Field("blockTime") String blockTime);
 
     @GET("?fx=getdeals")
     Call<DealResponse> getDeals();
@@ -40,7 +40,7 @@ public interface API {
 
     @FormUrlEncoded
     @POST("?fx=updateProfile")
-    Call<InsertResponse> updateUser(@Field("userid") String user_id,@Field("name") String name, @Field("email") String email,
+    Call<InsertResponse> updateUser(@Field("userid") String user_id, @Field("name") String name, @Field("email") String email,
                                     @Field("phone") String phone);
 
     @FormUrlEncoded

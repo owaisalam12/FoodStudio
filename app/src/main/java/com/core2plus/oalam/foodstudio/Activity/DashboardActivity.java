@@ -218,7 +218,7 @@ public class DashboardActivity extends NavigationLiveo implements OnItemClickLis
             public void onResponse(Call<ProfImgResponse> call, Response<ProfImgResponse> response) {
                 ProfImgResponse profImgResponse = response.body();
                 //setImageView(profImgResponse.getProfImgs().get(0).getImg());
-                if(profImgResponse.getSuccess()!=0){
+                if (profImgResponse.getSuccess() != 0) {
                     userimg = Img_URL + profImgResponse.getProfImgs().get(0).getImg();
                     //imageView.setImageURI(Uri.parse(userimg));
 

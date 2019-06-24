@@ -69,7 +69,7 @@ public class HistoryORM implements InterfaceORM<History> {
         SQLiteDatabase database = databaseWrapper.getReadableDatabase();
         List<History> historyList = new ArrayList<>();
 
-        Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME +" ORDER BY " + COLUMN_ID +" DESC ", null);
+        Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME + " ORDER BY " + COLUMN_ID + " DESC ", null);
         try {
             if (cursor.moveToFirst()) {
                 do {

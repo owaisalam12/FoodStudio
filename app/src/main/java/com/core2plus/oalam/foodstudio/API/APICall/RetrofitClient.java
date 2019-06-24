@@ -7,10 +7,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
     // TODO: 24-Jun-19 url
-   // private static final String BASE_URL = "https://raw.githubusercontent.com/hasancse91/Android-CardView-RecyclerView/master/Related_Data/";
+    // private static final String BASE_URL = "https://raw.githubusercontent.com/hasancse91/Android-CardView-RecyclerView/master/Related_Data/";
 //   private static final String BASE_URL="http://192.168.137.1/food/API/API.php/";
-   private static final String BASE_URL= Constants.API_URL;
-   //private static final String BASE_URL="http://core2plus.com/food/API/API.php/";
+    private static final String BASE_URL = Constants.API_URL;
+    //private static final String BASE_URL="http://core2plus.com/food/API/API.php/";
 
     // private static final String BASE_URL="http://www.mocky.io/";
     //singleton instance

@@ -31,7 +31,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.core2plus.oalam.foodstudio.API.APICall.RetrofitClient;
 import com.core2plus.oalam.foodstudio.API.Adapter.Recycleradapter;
@@ -82,7 +81,7 @@ public class HomeFragment extends Fragment {
     RecycleradapterUpcoming recyclerAdapterUpcomingItems;
     SharedPreferences prefs;
     TimerTextView timerText;
-    TextView textViewAvailable,textViewUpcoming;
+    TextView textViewAvailable, textViewUpcoming;
     ShimmerFrameLayout mShimmerViewContainer;
     ShimmerFrameLayout mShimmerViewContainerUpcomingItems;
     //private long BLOCK_TIME = 86400000; // 24houurs in miliseconds
@@ -108,8 +107,8 @@ public class HomeFragment extends Fragment {
         sliderLayout = view.findViewById(R.id.imageSlider);
         recyclerAdapter = new Recycleradapter(listing, ImageLoader.getInstance());
         recyclerAdapterUpcomingItems = new RecycleradapterUpcoming(listingUpcomingItems, ImageLoader.getInstance());
-        textViewAvailable=view.findViewById(R.id.TVnodealsAvailable);
-        textViewUpcoming=view.findViewById(R.id.TVnodealsUpcoming);
+        textViewAvailable = view.findViewById(R.id.TVnodealsAvailable);
+        textViewUpcoming = view.findViewById(R.id.TVnodealsUpcoming);
         sliderLayout.setIndicatorAnimation(IndicatorAnimations.SWAP); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
         sliderLayout.setSliderTransformAnimation(SliderAnimations.FADETRANSFORMATION);
         sliderLayout.setScrollTimeInSec(2); //set scroll delay in seconds :
@@ -268,7 +267,7 @@ public class HomeFragment extends Fragment {
 
                     mShimmerViewContainer.stopShimmer();
                     mShimmerViewContainer.setVisibility(View.GONE);
-                   // Toast.makeText(getActivity(), "No deals available at the moment", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getActivity(), "No deals available at the moment", Toast.LENGTH_SHORT).show();
                     textViewAvailable.setVisibility(View.VISIBLE);
                 }
             }
@@ -322,7 +321,7 @@ public class HomeFragment extends Fragment {
 
                     mShimmerViewContainerUpcomingItems.stopShimmer();
                     mShimmerViewContainerUpcomingItems.setVisibility(View.GONE);
-                   //Toast.makeText(getActivity(), "No deals available at the moment", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "No deals available at the moment", Toast.LENGTH_SHORT).show();
                     textViewUpcoming.setVisibility(View.VISIBLE);
 
                 }
@@ -338,16 +337,15 @@ public class HomeFragment extends Fragment {
     private void setSliderViews(int list) {
 
         Log.v("listsize2", String.valueOf(list));
-        for (int i = 0; i < list; i++)
-        {
+        for (int i = 0; i < list; i++) {
             DefaultSliderView sliderView = new DefaultSliderView(getContext());
 //            Log.v("sld", String.valueOf(sliderList.size()));
 //            Log.v("sld", sliderList.get(i).getSlider().get(i).getId());
 //            Log.v("sld", sliderList.get(i).getSlider().get(i).getImgUrl());
 //            Log.v("sld", sliderList.get(i).getSlider().get(i).getDescription());
 //
-           // sliderView.setImageUrl(sliderList.get(i).getSlider().get(i).getImgUrl());
-            sliderView.setImageUrl(Img_URL+sliderList.get(i).getSlider().get(i).getImg());
+            // sliderView.setImageUrl(sliderList.get(i).getSlider().get(i).getImgUrl());
+            sliderView.setImageUrl(Img_URL + sliderList.get(i).getSlider().get(i).getImg());
             sliderView.setDescription(sliderList.get(i).getSlider().get(i).getDescription());
 
 

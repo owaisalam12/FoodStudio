@@ -1,9 +1,9 @@
 package com.core2plus.oalam.foodstudio.Activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.WindowManager;
 
 public class SplashActivity extends AppCompatActivity {
@@ -24,6 +24,7 @@ public class SplashActivity extends AppCompatActivity {
         }, 1250);
 
     }
+
     public void showStatusBar(boolean isVisible) {
         if (!isVisible) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,

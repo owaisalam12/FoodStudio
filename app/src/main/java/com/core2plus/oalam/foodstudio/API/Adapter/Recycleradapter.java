@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.chootdev.blurimg.BlurImage;
 import com.core2plus.oalam.foodstudio.API.DealResponse;
 import com.core2plus.oalam.foodstudio.Entity.Constants;
 import com.core2plus.oalam.foodstudio.R;
@@ -21,11 +20,12 @@ import java.util.List;
 public class Recycleradapter extends RecyclerView.Adapter<Recycleradapter.MyHolder> implements View.OnClickListener {
     // TODO: 24-Jun-19 url
 //    private static final String BASE_URL="http://192.168.137.1/food/assets/images/food_image";
-    private static final String BASE_URL= Constants.Img_URL_Available;
-   // private static final String BASE_URL="http://core2plus.com/food/assets/images/";
+    private static final String BASE_URL = Constants.Img_URL_Available;
+    // private static final String BASE_URL="http://core2plus.com/food/assets/images/";
     List<DealResponse> list;
     ImageLoader imageLoader;
     private Context context;
+
     public Recycleradapter(List<DealResponse> list, ImageLoader imageLoader) {
         this.list = list;
         this.imageLoader = imageLoader;
@@ -37,7 +37,7 @@ public class Recycleradapter extends RecyclerView.Adapter<Recycleradapter.MyHold
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_food_card2, parent, false);
         MyHolder myHolder = new MyHolder(view);
-        context=parent.getContext();
+        context = parent.getContext();
         return myHolder;
     }
 
@@ -47,9 +47,9 @@ public class Recycleradapter extends RecyclerView.Adapter<Recycleradapter.MyHold
         DealResponse product = list.get(position);
         holder.name.setText(product.getDeals().get(position).getDealsName());
         String image1 = product.getDeals().get(position).getImg();
-       // BlurImage.withContext(context).blurFromUri(BASE_URL+image1)
-         //       .into(holder.image);
-        imageLoader.displayImage(BASE_URL+image1, holder.image);
+        // BlurImage.withContext(context).blurFromUri(BASE_URL+image1)
+        //       .into(holder.image);
+        imageLoader.displayImage(BASE_URL + image1, holder.image);
 
 
     }
@@ -64,7 +64,7 @@ public class Recycleradapter extends RecyclerView.Adapter<Recycleradapter.MyHold
         Log.d("Recycler", "onClick " + v.toString());
     }
 
-    class MyHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
+    class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView name, color, price;
         ImageView image;
 
@@ -79,7 +79,7 @@ public class Recycleradapter extends RecyclerView.Adapter<Recycleradapter.MyHold
         @Override
         public void onClick(View v) {
 
-            Log.d("Recycler", "onClick " + getAdapterPosition()+" "+list.get(getAdapterPosition()).getDeals().get(getAdapterPosition()).getDealsName());
+            Log.d("Recycler", "onClick " + getAdapterPosition() + " " + list.get(getAdapterPosition()).getDeals().get(getAdapterPosition()).getDealsName());
         }
     }
 

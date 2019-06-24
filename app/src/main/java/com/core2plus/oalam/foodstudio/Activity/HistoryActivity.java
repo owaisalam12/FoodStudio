@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.core2plus.oalam.foodstudio.API.APICall.RetrofitClient;
-import com.core2plus.oalam.foodstudio.API.InsertResponse;
 import com.core2plus.oalam.foodstudio.API.Purchase;
 import com.core2plus.oalam.foodstudio.API.PurchaseResponse;
 import com.core2plus.oalam.foodstudio.Adapter.HistoryAdapter;
@@ -76,26 +75,26 @@ public class HistoryActivity extends AppCompatActivity implements SwipeRefreshLa
     }
 
     private void getData2() {
-        Log.v("history","getData2");
-       // List<History> historyList = new ArrayList<>();
+        Log.v("history", "getData2");
+        // List<History> historyList = new ArrayList<>();
         final List<Purchase> purchaseList = new ArrayList<>();
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            Log.v("history","FirebaseAuth");
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            Call<PurchaseResponse> call= RetrofitClient.getInstance().getApi().getPurchasebyUserId(userId);
+            Log.v("history", "FirebaseAuth");
+            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            Call<PurchaseResponse> call = RetrofitClient.getInstance().getApi().getPurchasebyUserId(userId);
             call.enqueue(new Callback<PurchaseResponse>() {
                 @Override
                 public void onResponse(Call<PurchaseResponse> call, Response<PurchaseResponse> response) {
-                    Log.v("history","onrespose");
-                    PurchaseResponse purchaseResponse=response.body();
+                    Log.v("history", "onrespose");
+                    PurchaseResponse purchaseResponse = response.body();
                     if (purchaseResponse.getSuccess() != 0) {
                         for (Purchase purchase : purchaseResponse.getPurchases()) {
                             purchaseList.add(purchase);
                             adapter = new HistoryAdapter(purchaseList);
                             historyRecyclerView.setAdapter(adapter);
-                            Log.v("history",purchase.getImgUrl());
-                            Log.v("history",purchase.getPurchaseTime());
-                            Log.v("history",purchase.getUserid());
+                            Log.v("history", purchase.getImgUrl());
+                            Log.v("history", purchase.getPurchaseTime());
+                            Log.v("history", purchase.getUserid());
                             //Log.v("Divi", name.getProvID().toString());
 //                            HashMap_MainArea.put(name.getLocationName(), Integer.parseInt(name.getLocationID()));
 //                            MainArea.add(name.getLocationName());
@@ -112,9 +111,10 @@ public class HistoryActivity extends AppCompatActivity implements SwipeRefreshLa
 //            historyList = h.getAll(getApplicationContext());
 //            adapter = new HistoryAdapter(historyList);
 //            historyRecyclerView.setAdapter(adapter);
-    }
+        }
 
     }
+
     public void historyOnClickEvents(View v) {
 
         switch (v.getId()) {

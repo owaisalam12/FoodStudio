@@ -2,7 +2,6 @@ package com.core2plus.oalam.foodstudio.Fragment;
 
 
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -18,8 +17,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.core2plus.oalam.foodstudio.API.APICall.RetrofitClient;
@@ -31,7 +28,6 @@ import com.core2plus.oalam.foodstudio.R;
 import com.core2plus.oalam.foodstudio.SQLite.ORM.HistoryORM;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +47,7 @@ public class PurchasesFragment extends Fragment implements SwipeRefreshLayout.On
     public PurchasesFragment() {
         // Required empty public constructor
     }
+
     // Init ui elements
     @BindView(R.id.historySwipeRefreshLayout)
     SwipeRefreshLayout historySwipeRefreshLayout;
@@ -61,17 +58,18 @@ public class PurchasesFragment extends Fragment implements SwipeRefreshLayout.On
     List<History> historyList;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Purchases History");
-        View view= inflater.inflate(R.layout.fragment_purchases, container, false);
+        View view = inflater.inflate(R.layout.fragment_purchases, container, false);
         ButterKnife.bind(getActivity());
         setHasOptionsMenu(true);
-        historySwipeRefreshLayout=view.findViewById(R.id.historySwipeRefreshLayout);
+        historySwipeRefreshLayout = view.findViewById(R.id.historySwipeRefreshLayout);
         historySwipeRefreshLayout.setOnRefreshListener(this);
-        historyRecyclerView=view.findViewById(R.id.historyRecyclerView);
+        historyRecyclerView = view.findViewById(R.id.historyRecyclerView);
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         historyRecyclerView.setLayoutManager(layoutManager);
         getData();
@@ -79,22 +77,25 @@ public class PurchasesFragment extends Fragment implements SwipeRefreshLayout.On
 
         return view;
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menudelete, menu);
 
         super.onCreateOptionsMenu(menu, inflater);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.deleteAction) {
-                //h.clearAll(getContext());
-                //Toast.makeText(getContext(), "The history is cleared, please refresh this page!", Toast.LENGTH_LONG).show();
-       showDialog();
+            //h.clearAll(getContext());
+            //Toast.makeText(getContext(), "The history is cleared, please refresh this page!", Toast.LENGTH_LONG).show();
+            showDialog();
         }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onRefresh() {
         new Handler().postDelayed(new Runnable() {
@@ -107,35 +108,36 @@ public class PurchasesFragment extends Fragment implements SwipeRefreshLayout.On
             }
         }, 2000);
     }
-//    private void getData() {
+
+    //    private void getData() {
 //        historyList = h.getAll(getContext());
 //        adapter = new HistoryAdapter(historyList);
 //        historyRecyclerView.setAdapter(adapter);
 //    }
     private void getData() {
-        Log.v("history","getData2");
+        Log.v("history", "getData2");
         // List<History> historyList = new ArrayList<>();
         final List<Purchase> purchaseList = new ArrayList<>();
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            Log.v("history","FirebaseAuth");
+            Log.v("history", "FirebaseAuth");
             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            Log.v("history",userId);
+            Log.v("history", userId);
 
-            Call<PurchaseResponse> call= RetrofitClient.getInstance().getApi().getPurchasebyUserId(userId);
+            Call<PurchaseResponse> call = RetrofitClient.getInstance().getApi().getPurchasebyUserId(userId);
             call.enqueue(new Callback<PurchaseResponse>() {
                 @Override
                 public void onResponse(Call<PurchaseResponse> call, Response<PurchaseResponse> response) {
 
-                    PurchaseResponse purchaseResponse=response.body();
-                    Log.v("history",purchaseResponse.toString());
+                    PurchaseResponse purchaseResponse = response.body();
+                    Log.v("history", purchaseResponse.toString());
                     if (purchaseResponse.getSuccess() != 0) {
                         for (Purchase purchase : purchaseResponse.getPurchases()) {
                             purchaseList.add(purchase);
                             adapter = new HistoryAdapter(purchaseList);
                             historyRecyclerView.setAdapter(adapter);
-                            Log.v("history",purchase.getImgUrl());
-                            Log.v("history",purchase.getPurchaseTime());
-                            Log.v("history",purchase.getUserid());
+                            Log.v("history", purchase.getImgUrl());
+                            Log.v("history", purchase.getPurchaseTime());
+                            Log.v("history", purchase.getUserid());
                             //Log.v("Divi", name.getProvID().toString());
 //                            HashMap_MainArea.put(name.getLocationName(), Integer.parseInt(name.getLocationID()));
 //                            MainArea.add(name.getLocationName());
@@ -168,7 +170,7 @@ public class PurchasesFragment extends Fragment implements SwipeRefreshLayout.On
 //        }
 //    }
 
-    private void showDialog(){
+    private void showDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Confirm dialog");
         builder.setMessage("You are about to delete all records. Do you really want to proceed?");

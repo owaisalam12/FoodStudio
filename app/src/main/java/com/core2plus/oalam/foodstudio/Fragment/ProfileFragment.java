@@ -3,17 +3,13 @@ package com.core2plus.oalam.foodstudio.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -26,15 +22,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.core2plus.oalam.foodstudio.API.APICall.RetrofitClient;
 import com.core2plus.oalam.foodstudio.API.InsertResponse;
 import com.core2plus.oalam.foodstudio.API.ProfImgResponse;
-import com.core2plus.oalam.foodstudio.Activity.DashboardActivity;
-import com.core2plus.oalam.foodstudio.Activity.VerificationActivity;
 import com.core2plus.oalam.foodstudio.Entity.Constants;
 import com.core2plus.oalam.foodstudio.Entity.UserData;
 import com.core2plus.oalam.foodstudio.R;
@@ -43,12 +36,10 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
@@ -59,7 +50,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.util.UUID;
 
 import retrofit2.Call;
@@ -105,9 +95,10 @@ public class ProfileFragment extends Fragment {
 
     // TODO: 24-Jun-19 url
 //    private String Img_URL="http://192.168.137.1/food/assets/images/users/";
-    private String Img_URL= Constants.Img_URL_Users;
+    private String Img_URL = Constants.Img_URL_Users;
     private String userimg;
     ImageLoader imageLoader;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -133,13 +124,13 @@ public class ProfileFragment extends Fragment {
         String mobile = sharedpreferences.getString("mobile", null);
         final String userimg = sharedpreferences.getString("userimg", null);
 
-        if (name != null && email != null && mobile != null && userimg !=null) {
+        if (name != null && email != null && mobile != null && userimg != null) {
 
             profileNameMainTextView.setText(name);
             profileNameTextView.setText(name);
             profileEmailTextView.setText(email);
             profilePhoneTextView.setText(mobile);
-            imageLoader.displayImage(userimg,imageView);
+            imageLoader.displayImage(userimg, imageView);
             Log.v("userimg", userimg);
         } else {
             getUserData();
@@ -180,7 +171,7 @@ public class ProfileFragment extends Fragment {
                 editTextName.setText(profileNameTextView.getText().toString());
                 editTextEmail.setText(profileEmailTextView.getText().toString());
                 editTextPhone.setText(profilePhoneTextView.getText().toString());
-                imageLoader.displayImage(userimg,imageViewProfile);
+                imageLoader.displayImage(userimg, imageViewProfile);
 
                 final AlertDialog b = dialogBuilder.create();
                 b.show();
@@ -221,7 +212,7 @@ public class ProfileFragment extends Fragment {
                         uploadImage();
                         getUserData();
                         getUserImg();
-                       // new DashboardActivity().getUserData();
+                        // new DashboardActivity().getUserData();
                         //new DashboardActivity().getUserImg();
                         b.dismiss();
 
@@ -240,13 +231,13 @@ public class ProfileFragment extends Fragment {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
     }
-    private String convertToString()
-    {
-        if(bitmap!=null){
+
+    private String convertToString() {
+        if (bitmap != null) {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
             byte[] imgByte = byteArrayOutputStream.toByteArray();
-            return Base64.encodeToString(imgByte,Base64.DEFAULT);
+            return Base64.encodeToString(imgByte, Base64.DEFAULT);
         }
 
         return null;
@@ -321,23 +312,23 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    private void getUserImg(){
+    private void getUserImg() {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        Call<ProfImgResponse>call=RetrofitClient.getInstance().getApi().getUserImg(userId);
+        Call<ProfImgResponse> call = RetrofitClient.getInstance().getApi().getUserImg(userId);
         call.enqueue(new Callback<ProfImgResponse>() {
             @Override
             public void onResponse(Call<ProfImgResponse> call, Response<ProfImgResponse> response) {
-                ProfImgResponse profImgResponse=response.body();
-               //setImageView(profImgResponse.getProfImgs().get(0).getImg());
-                if(profImgResponse.getSuccess()!=0){
-                    userimg = Img_URL+profImgResponse.getProfImgs().get(0).getImg();
+                ProfImgResponse profImgResponse = response.body();
+                //setImageView(profImgResponse.getProfImgs().get(0).getImg());
+                if (profImgResponse.getSuccess() != 0) {
+                    userimg = Img_URL + profImgResponse.getProfImgs().get(0).getImg();
                     //imageView.setImageURI(Uri.parse(userimg));
-                    imageLoader.displayImage(userimg,imageView);
+                    imageLoader.displayImage(userimg, imageView);
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putString("userimg", userimg);
 
                     editor.commit();
-                    Log.v("profuri",userimg);
+                    Log.v("profuri", userimg);
                 }
 
             }
@@ -348,7 +339,6 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
-
 
 
     private void getUserData2() {
@@ -453,14 +443,14 @@ public class ProfileFragment extends Fragment {
 //        }
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
-                Uri path = data.getData();
+            Uri path = data.getData();
 
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),path);
-                Log.v("Imagebitmap",bitmap.toString());
-               // imageLoader.displayImage(getImageUri(getContext(),bitmap),imageView);
+                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), path);
+                Log.v("Imagebitmap", bitmap.toString());
+                // imageLoader.displayImage(getImageUri(getContext(),bitmap),imageView);
                 //imageLoader.displayImage(path.toString(),imageView);
-                Log.v("Imagebitmap",path.toString());
+                Log.v("Imagebitmap", path.toString());
                 imageViewProfile.setImageBitmap(bitmap);
                 imageView.setImageBitmap(bitmap);
             } catch (IOException e) {
@@ -470,37 +460,36 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    private void uploadImage(){
+    private void uploadImage() {
         String image;
-        if(convertToString()!=null){
-             image = convertToString();
+        if (convertToString() != null) {
+            image = convertToString();
             //String image = "test";
             //String imageName = "test";
             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-            Log.v("ImageuploadImage",userId);
+            Log.v("ImageuploadImage", userId);
 
-            Call<InsertResponse> call=RetrofitClient.getInstance().getApi().uploadImage(userId,image);
+            Call<InsertResponse> call = RetrofitClient.getInstance().getApi().uploadImage(userId, image);
             call.enqueue(new Callback<InsertResponse>() {
                 @Override
                 public void onResponse(Call<InsertResponse> call, Response<InsertResponse> response) {
-                    InsertResponse insertResponse=response.body();
-                    if(insertResponse.getSuccess()!=0){
-                        Log.v("Image",insertResponse.getMessage());
-                    }else{
-                        Log.v("Image",insertResponse.getMessage());
+                    InsertResponse insertResponse = response.body();
+                    if (insertResponse.getSuccess() != 0) {
+                        Log.v("Image", insertResponse.getMessage());
+                    } else {
+                        Log.v("Image", insertResponse.getMessage());
                     }
                 }
 
                 @Override
                 public void onFailure(Call<InsertResponse> call, Throwable t) {
-                    Log.v("ImageF",t.getMessage().toString());
+                    Log.v("ImageF", t.getMessage().toString());
 
                 }
             });
 
         }
-
 
 
     }

@@ -1,6 +1,5 @@
 package com.core2plus.oalam.foodstudio.Activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -16,25 +15,28 @@ import com.core2plus.oalam.foodstudio.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.hbb20.CountryCodePicker;
 
-import java.io.File;
 import java.io.IOException;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    private EditText editTextName, editTextEmail, editTextPhone,editTextPassword, editTextSelectImage;
+    private EditText editTextName, editTextEmail, editTextPhone, editTextPassword, editTextSelectImage;
     private CountryCodePicker ccp;
     private Button buttonSendCode;
     private Uri filePath;
     public static Uri SfileURI;
     public static Bitmap Sbitmap;
-    public Bitmap getBitmap(){
+
+    public Bitmap getBitmap() {
         return Sbitmap;
     }
-    public Uri getFileURI(){
+
+    public Uri getFileURI() {
         return SfileURI;
     }
+
     private static final int REQUEST_CAPTURE_IMAGE = 100;
     private final int PICK_IMAGE_REQUEST = 71;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,8 +102,8 @@ public class SignUpActivity extends AppCompatActivity {
 //        if (requestCode == REQUEST_CAPTURE_IMAGE && resultCode == RESULT_OK) {
 //            if (data != null && data.getExtras() != null) {
 //
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
-                && data != null && data.getData() != null ) {
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
             filePath = data.getData();
             SfileURI = filePath;
 
@@ -154,6 +156,7 @@ public class SignUpActivity extends AppCompatActivity {
         return true;
 
     }
+
     @Override
     protected void onStart() {
         super.onStart();

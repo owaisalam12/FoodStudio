@@ -29,7 +29,6 @@ import com.core2plus.oalam.foodstudio.API.APICall.RetrofitClient;
 import com.core2plus.oalam.foodstudio.API.InsertResponse;
 import com.core2plus.oalam.foodstudio.Entity.History;
 import com.core2plus.oalam.foodstudio.Entity.PurchaseData;
-import com.core2plus.oalam.foodstudio.Entity.UserData;
 import com.core2plus.oalam.foodstudio.R;
 import com.core2plus.oalam.foodstudio.SQLite.ORM.HistoryORM;
 import com.google.firebase.auth.FirebaseAuth;
@@ -57,19 +56,22 @@ public class QRActivity extends AppCompatActivity implements ZXingScannerView.Re
     private boolean flashState = false;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
-    String purchaseItemG,purchaseTimeG,blockTimeG;
-    private static boolean qrScanned=false;
-    public boolean getQrScanned(){
+    String purchaseItemG, purchaseTimeG, blockTimeG;
+    private static boolean qrScanned = false;
+
+    public boolean getQrScanned() {
         return qrScanned;
     }
-    public boolean setQrScanned(Boolean qr){
-       return qrScanned=qr;
+
+    public boolean setQrScanned(Boolean qr) {
+        return qrScanned = qr;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr);
-            setQrScanned(false);
+        setQrScanned(false);
         ActivityCompat.requestPermissions(QRActivity.this,
                 new String[]{Manifest.permission.CAMERA},
                 1);
@@ -90,23 +92,23 @@ public class QRActivity extends AppCompatActivity implements ZXingScannerView.Re
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             mydate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
         }
-        purchaseItemG=rawResult.getText();
-        purchaseTimeG=mydate;
-        blockTimeG=String.valueOf(blocktime);
+        purchaseItemG = rawResult.getText();
+        purchaseTimeG = mydate;
+        blockTimeG = String.valueOf(blocktime);
 
         //send purchase to firebase
         sendPurchaseToFirebase();
         // TODO: 24-Apr-19 send data to mysql
-        Call<InsertResponse>call= RetrofitClient.getInstance().getApi().insertpurchase(userId,rawResult.getText(),mydate,String.valueOf(blocktime));
+        Call<InsertResponse> call = RetrofitClient.getInstance().getApi().insertpurchase(userId, rawResult.getText(), mydate, String.valueOf(blocktime));
         call.enqueue(new Callback<InsertResponse>() {
             @Override
             public void onResponse(Call<InsertResponse> call, Response<InsertResponse> response) {
-                InsertResponse insertResponse=response.body();
-                if(insertResponse.getSuccess()!=0){
-                    qrScanned=true;
+                InsertResponse insertResponse = response.body();
+                if (insertResponse.getSuccess() != 0) {
+                    qrScanned = true;
                     Toast.makeText(QRActivity.this, insertResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                }else{
-                    qrScanned=false;
+                } else {
+                    qrScanned = false;
                     Toast.makeText(QRActivity.this, insertResponse.getMessage(), Toast.LENGTH_SHORT).show();
 
                 }
@@ -228,29 +230,29 @@ public class QRActivity extends AppCompatActivity implements ZXingScannerView.Re
 
     }
 
-    private void sendPurchaseToFirebase(){
+    private void sendPurchaseToFirebase() {
 
-            //uploadImage();
-            database = FirebaseDatabase.getInstance();
-            myRef = database.getReference("Purchases/");
-            String purchaseItem =purchaseItemG;
-            String purchaseTime = purchaseTimeG;
-            String blockTime=blockTimeG;
+        //uploadImage();
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Purchases/");
+        String purchaseItem = purchaseItemG;
+        String purchaseTime = purchaseTimeG;
+        String blockTime = blockTimeG;
 
-            //String imageUrl=imagePath;
-            if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        //String imageUrl=imagePath;
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                if ((purchaseItem != null && !purchaseItem.isEmpty() && !purchaseItem.equals("null")) && (purchaseTime != null && !purchaseTime.isEmpty() && !purchaseTime.equals("null")) && (blockTime != null && !blockTime.isEmpty() && !blockTime.equals("null"))){
+            if ((purchaseItem != null && !purchaseItem.isEmpty() && !purchaseItem.equals("null")) && (purchaseTime != null && !purchaseTime.isEmpty() && !purchaseTime.equals("null")) && (blockTime != null && !blockTime.isEmpty() && !blockTime.equals("null"))) {
                 Log.d("token", "GetTokenResult result 1 = " + userId);
-                    PurchaseData purchaseData = new PurchaseData(userId, purchaseItem,purchaseTime, blockTime);
-                    myRef.child(userId).setValue(purchaseData);
-                }
-
-            } else {
-
+                PurchaseData purchaseData = new PurchaseData(userId, purchaseItem, purchaseTime, blockTime);
+                myRef.child(userId).setValue(purchaseData);
             }
+
+        } else {
+
         }
+    }
 
     @Override
     public void onResume() {
@@ -258,6 +260,7 @@ public class QRActivity extends AppCompatActivity implements ZXingScannerView.Re
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();
     }
+
     @Override
     public void onPause() {
         super.onPause();

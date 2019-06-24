@@ -1,32 +1,32 @@
 
 package com.core2plus.oalam.foodstudio.API.Adapter;
 
-        import android.content.Context;
-        import android.support.v7.widget.RecyclerView;
-        import android.util.Log;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.ImageView;
-        import android.widget.TextView;
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-        import com.chootdev.blurimg.BlurImage;
-        import com.core2plus.oalam.foodstudio.API.DealResponse;
-        import com.core2plus.oalam.foodstudio.Entity.Constants;
-        import com.core2plus.oalam.foodstudio.R;
-        import com.nostra13.universalimageloader.core.ImageLoader;
+import com.core2plus.oalam.foodstudio.API.DealResponse;
+import com.core2plus.oalam.foodstudio.Entity.Constants;
+import com.core2plus.oalam.foodstudio.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
-        import java.util.List;
+import java.util.List;
 
 
 public class RecycleradapterUpcoming extends RecyclerView.Adapter<RecycleradapterUpcoming.MyHolder> implements View.OnClickListener {
     // TODO: 24-Jun-19 url
 //    private static final String BASE_URL="http://192.168.137.1/food/assets/images/Upcoming_items";
-    private static final String BASE_URL= Constants.Img_URL_Upcoming;
+    private static final String BASE_URL = Constants.Img_URL_Upcoming;
     // private static final String BASE_URL="http://core2plus.com/food/assets/images/";
     List<DealResponse> list;
     ImageLoader imageLoader;
     private Context context;
+
     public RecycleradapterUpcoming(List<DealResponse> list, ImageLoader imageLoader) {
         this.list = list;
         this.imageLoader = imageLoader;
@@ -38,7 +38,7 @@ public class RecycleradapterUpcoming extends RecyclerView.Adapter<Recycleradapte
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_food_card2, parent, false);
         MyHolder myHolder = new MyHolder(view);
-        context=parent.getContext();
+        context = parent.getContext();
         return myHolder;
     }
 
@@ -50,7 +50,7 @@ public class RecycleradapterUpcoming extends RecyclerView.Adapter<Recycleradapte
         String image1 = product.getDeals().get(position).getImg();
         // BlurImage.withContext(context).blurFromUri(BASE_URL+image1)
         //       .into(holder.image);
-        imageLoader.displayImage(BASE_URL+image1, holder.image);
+        imageLoader.displayImage(BASE_URL + image1, holder.image);
 
 
     }
@@ -65,7 +65,7 @@ public class RecycleradapterUpcoming extends RecyclerView.Adapter<Recycleradapte
         Log.d("Recycler", "onClick " + v.toString());
     }
 
-    class MyHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
+    class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView name, color, price;
         ImageView image;
 
@@ -80,7 +80,7 @@ public class RecycleradapterUpcoming extends RecyclerView.Adapter<Recycleradapte
         @Override
         public void onClick(View v) {
 
-            Log.d("Recycler", "onClick " + getAdapterPosition()+" "+list.get(getAdapterPosition()).getDeals().get(getAdapterPosition()).getDealsName());
+            Log.d("Recycler", "onClick " + getAdapterPosition() + " " + list.get(getAdapterPosition()).getDeals().get(getAdapterPosition()).getDealsName());
         }
     }
 

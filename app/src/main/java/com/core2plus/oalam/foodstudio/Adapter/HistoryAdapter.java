@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,14 +15,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.core2plus.oalam.foodstudio.API.Purchase;
-import com.core2plus.oalam.foodstudio.Entity.History;
 import com.core2plus.oalam.foodstudio.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.io.File;
 import java.util.List;
-
-import id.zelory.compressor.Compressor;
 
 
 /**
@@ -37,12 +32,14 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     private List<Purchase> purchaseList;
     private Context context;
     ImageLoader imageLoader = ImageLoader.getInstance();
-//    public HistoryAdapter(List<History> historyList) {
+
+    //    public HistoryAdapter(List<History> historyList) {
 //        this.historyList = historyList;
 //    }
     public HistoryAdapter(List<Purchase> purchaseList) {
         this.purchaseList = purchaseList;
     }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -61,7 +58,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 //        String[] split=QRtext.split(";");
 //        Log.v("split0",split[0]);
 //        Log.v("split1",split[1]);
-       // holder.context.setText((position + 1) + ". " + historyList.get(position).getContext());
+        // holder.context.setText((position + 1) + ". " + historyList.get(position).getContext());
         holder.context.setText((position + 1) + ". " + purchaseList.get(position).getText());
         //imageLoader.displayImage(historyList.get(position).getContext(), holder.img);
         imageLoader.displayImage(purchaseList.get(position).getURl(), holder.img);
@@ -77,7 +74,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
                 } else {
                     url = "http://www.google.com/#q=" + purchaseList.get(position).getImgUrl();
                 }
-
 
 
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -109,14 +105,14 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-            //return historyList.size();
-            return purchaseList.size();
+        //return historyList.size();
+        return purchaseList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView context, date;
-        public ImageView search, copy, share,img;
+        public ImageView search, copy, share, img;
 
         public ViewHolder(View itemView) {
             super(itemView);

@@ -1,11 +1,8 @@
 package com.core2plus.oalam.foodstudio.Activity;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.icu.util.Calendar;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -29,7 +26,6 @@ import com.google.android.gms.tasks.TaskExecutors;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
@@ -39,7 +35,6 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
@@ -64,11 +59,12 @@ public class VerificationActivity extends AppCompatActivity {
     private String mVerificationId;
     private Button btnVerifyCode;
     TextView textViewResendCode;
-    private String mobile,name,email,pass;
+    private String mobile, name, email, pass;
     FirebaseStorage storage;
     StorageReference storageReference;
     StorageReference ref;
     private SharedPreferences sharedpreferences2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,10 +81,10 @@ public class VerificationActivity extends AppCompatActivity {
                 .setTheme(R.style.Custom)
                 .build();
         Intent intent = getIntent();
-         mobile = intent.getStringExtra("mobile");
-         name = intent.getStringExtra("name");
-         email = intent.getStringExtra("email");
-         pass = intent.getStringExtra("pass");
+        mobile = intent.getStringExtra("mobile");
+        name = intent.getStringExtra("name");
+        email = intent.getStringExtra("email");
+        pass = intent.getStringExtra("pass");
 
         sendVerificationCode(mobile);
 
@@ -209,13 +205,13 @@ public class VerificationActivity extends AppCompatActivity {
 
     private void verifyVerificationCode(String code) {
         //creating the credential
-        try{
+        try {
             PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, code);
 
             //signing the user
             signInWithPhoneAuthCredential(credential);
-        }catch (Exception e){
-            Toast.makeText(this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -288,17 +284,17 @@ public class VerificationActivity extends AppCompatActivity {
         //uploadImage();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("Users/");
-        String usermobile =mobile;
+        String usermobile = mobile;
         String username = name;
-        String useremail=email;
-        String userpass=pass;
+        String useremail = email;
+        String userpass = pass;
         //String imageUrl=imagePath;
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
             Log.d("token", "GetTokenResult result 1 = " + userId);
 
-            if ((usermobile != null && !usermobile.isEmpty() && !usermobile.equals("null")) && (username != null && !username.isEmpty() && !username.equals("null")) && (userId != null && !userId.isEmpty() && !userId.equals("null")) && (useremail != null && !useremail.isEmpty() && !useremail.equals("null"))&& (userpass != null && !userpass.isEmpty() && !userpass.equals("null"))) {
-                UserData userData = new UserData(username, useremail,userpass, usermobile);
+            if ((usermobile != null && !usermobile.isEmpty() && !usermobile.equals("null")) && (username != null && !username.isEmpty() && !username.equals("null")) && (userId != null && !userId.isEmpty() && !userId.equals("null")) && (useremail != null && !useremail.isEmpty() && !useremail.equals("null")) && (userpass != null && !userpass.isEmpty() && !userpass.equals("null"))) {
+                UserData userData = new UserData(username, useremail, userpass, usermobile);
                 myRef.child(userId).setValue(userData);
             }
 
@@ -306,35 +302,36 @@ public class VerificationActivity extends AppCompatActivity {
 
         }
     }
+
     private void addUserDatamySql() {
         //uploadImage();
 
-        String usermobile =mobile;
+        String usermobile = mobile;
         String username = name;
-        String useremail=email;
-        String userpass=pass;
+        String useremail = email;
+        String userpass = pass;
         //String imageUrl=imagePath;
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            if ((usermobile != null && !usermobile.isEmpty() && !usermobile.equals("null")) && (username != null && !username.isEmpty() && !username.equals("null")) && (userId != null && !userId.isEmpty() && !userId.equals("null")) && (useremail != null && !useremail.isEmpty() && !useremail.equals("null"))&& (userpass != null && !userpass.isEmpty() && !userpass.equals("null"))) {
+            if ((usermobile != null && !usermobile.isEmpty() && !usermobile.equals("null")) && (username != null && !username.isEmpty() && !username.equals("null")) && (userId != null && !userId.isEmpty() && !userId.equals("null")) && (useremail != null && !useremail.isEmpty() && !useremail.equals("null")) && (userpass != null && !userpass.isEmpty() && !userpass.equals("null"))) {
                 Date dt = new Date();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
                 String createdTime = dateFormat.format(dt);
                 //createdTime = DateFormat.getDateTimeInstance().format("yyyy-MM-dd kk:mm:ss");
-                Log.v("verify",userId);
-                Log.v("verify",username);
-                Log.v("verify",userpass);
-                Log.v("verify",useremail);
-                Log.v("verify",usermobile);
-                Log.v("verify",createdTime);
-                Call<InsertResponse>call = RetrofitClient.getInstance().getApi().insertdata(userId,username,useremail,userpass,usermobile,createdTime);
+                Log.v("verify", userId);
+                Log.v("verify", username);
+                Log.v("verify", userpass);
+                Log.v("verify", useremail);
+                Log.v("verify", usermobile);
+                Log.v("verify", createdTime);
+                Call<InsertResponse> call = RetrofitClient.getInstance().getApi().insertdata(userId, username, useremail, userpass, usermobile, createdTime);
                 call.enqueue(new Callback<InsertResponse>() {
                     @Override
                     public void onResponse(Call<InsertResponse> call, Response<InsertResponse> response) {
-                        InsertResponse insertResponse=response.body();
-                        if(insertResponse.getSuccess()!=0){
+                        InsertResponse insertResponse = response.body();
+                        if (insertResponse.getSuccess() != 0) {
                             Toast.makeText(VerificationActivity.this, insertResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                        }else{
+                        } else {
                             Toast.makeText(VerificationActivity.this, insertResponse.getMessage(), Toast.LENGTH_SHORT).show();
 
                         }
@@ -351,28 +348,28 @@ public class VerificationActivity extends AppCompatActivity {
 
         }
     }
-    private Uri filePath=new SignUpActivity().getFileURI();
+
+    private Uri filePath = new SignUpActivity().getFileURI();
 
     private void uploadImage() {
 
-        if(filePath != null)
-        {
-          //  final ProgressDialog progressDialog = new ProgressDialog(this);
-        //    progressDialog.setTitle("Uploading...");
-         //   progressDialog.setCancelable(false);
-           // progressDialog.show();
+        if (filePath != null) {
+            //  final ProgressDialog progressDialog = new ProgressDialog(this);
+            //    progressDialog.setTitle("Uploading...");
+            //   progressDialog.setCancelable(false);
+            // progressDialog.show();
 
-            ref = storageReference.child("images/"+ UUID.randomUUID().toString());
+            ref = storageReference.child("images/" + UUID.randomUUID().toString());
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                          //  progressDialog.dismiss();
+                            //  progressDialog.dismiss();
                             ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    String img= uri.toString();
-                                    imagePath=img;
+                                    String img = uri.toString();
+                                    imagePath = img;
 //                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 //
 //                                    Log.i("seeThisUri", ""+filePath);// This is the one you should store
@@ -382,21 +379,21 @@ public class VerificationActivity extends AppCompatActivity {
                                 }
                             });
 
-                     Toast.makeText(VerificationActivity.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(VerificationActivity.this, "Uploaded", Toast.LENGTH_SHORT).show();
                         }
                     })
 
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                         //   progressDialog.dismiss();
-                            Toast.makeText(VerificationActivity.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            //   progressDialog.dismiss();
+                            Toast.makeText(VerificationActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                    String img=task.getResult().toString();
-                    String a=ref.getDownloadUrl().toString();
+                    String img = task.getResult().toString();
+                    String a = ref.getDownloadUrl().toString();
 
 
                     // DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Image").child(mAuth.getCurrentUser().getUid());
@@ -411,12 +408,11 @@ public class VerificationActivity extends AppCompatActivity {
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
                                     .getTotalByteCount());
-                        //    progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                            //    progressDialog.setMessage("Uploaded "+(int)progress+"%");
                         }
                     });
-
 
 
         }

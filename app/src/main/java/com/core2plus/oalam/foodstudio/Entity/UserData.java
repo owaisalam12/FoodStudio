@@ -19,11 +19,12 @@ public class UserData {
         UserEmail = userEmail;
         UserMobile = userMobile;
     }
-    public UserData(String userName, String userEmail,String userPass, String userMobile) {
+
+    public UserData(String userName, String userEmail, String userPass, String userMobile) {
         UserName = userName;
         UserEmail = userEmail;
         UserMobile = userMobile;
-        UserPass=userPass;
+        UserPass = userPass;
     }
 
     public String getUserPass() {
