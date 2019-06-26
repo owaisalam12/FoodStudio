@@ -61,12 +61,12 @@
         </LinearLayout>
 
         <android.support.v7.widget.CardView
-            android:layout_width="400dp"
+            android:layout_width="500dp"
             android:layout_height="80dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="190dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="20dp"
             android:background="@color/offwhite"
             app:cardCornerRadius="5dp">
 
@@ -86,15 +86,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Purchased"
-                        android:textSize="20sp" />
+                        android:text="Purchased Amount"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/purchasedAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="10dp"
-                        android:text="$12"
+                        android:text="Rs 0"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -110,14 +110,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Donated"
-                        android:textSize="20sp" />
+                        android:text="Donated Amount"
+                        android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/donatedAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="10dp"
-                        android:text="$20"
+                        android:text="Rs 20"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 

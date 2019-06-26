@@ -42,6 +42,7 @@ import com.core2plus.oalam.foodstudio.API.Slider;
 import com.core2plus.oalam.foodstudio.API.SliderResponse;
 import com.core2plus.oalam.foodstudio.Activity.DashboardActivity;
 import com.core2plus.oalam.foodstudio.Activity.QRActivity;
+import com.core2plus.oalam.foodstudio.Entity.Constants;
 import com.core2plus.oalam.foodstudio.R;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -86,7 +87,8 @@ public class HomeFragment extends Fragment {
     ShimmerFrameLayout mShimmerViewContainerUpcomingItems;
     //private long BLOCK_TIME = 86400000; // 24houurs in miliseconds
     private long BLOCK_TIME = 20000;
-    private String Img_URL = "http://192.168.137.1/food/assets/images/banners/";
+    //    private String Img_URL = "http://192.168.137.1/food/assets/images/banners/";
+    private String Img_URL = Constants.Img_URL_Banners;
     private static String DEFAULT_CHANNEL_ID = "default_channel";
 
     public HomeFragment() {
@@ -346,6 +348,7 @@ public class HomeFragment extends Fragment {
 //
             // sliderView.setImageUrl(sliderList.get(i).getSlider().get(i).getImgUrl());
             sliderView.setImageUrl(Img_URL + sliderList.get(i).getSlider().get(i).getImg());
+            Log.v("sliders", Img_URL + sliderList.get(i).getSlider().get(i).getImg());
             sliderView.setDescription(sliderList.get(i).getSlider().get(i).getDescription());
 
 

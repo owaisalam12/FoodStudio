@@ -99,7 +99,7 @@ public class QRActivity extends AppCompatActivity implements ZXingScannerView.Re
         //send purchase to firebase
         sendPurchaseToFirebase();
         // TODO: 24-Apr-19 send data to mysql
-        Call<InsertResponse> call = RetrofitClient.getInstance().getApi().insertpurchase(userId, rawResult.getText(), mydate, String.valueOf(blocktime));
+        Call<InsertResponse> call = RetrofitClient.getInstance().getApi().insertpurchase(userId, rawResult.getText(), getText(rawResult.getText()), getImgURl(rawResult.getText()), getSuggestedPrice(rawResult.getText()), mydate, String.valueOf(blocktime));
         call.enqueue(new Callback<InsertResponse>() {
             @Override
             public void onResponse(Call<InsertResponse> call, Response<InsertResponse> response) {
@@ -265,5 +265,55 @@ public class QRActivity extends AppCompatActivity implements ZXingScannerView.Re
     public void onPause() {
         super.onPause();
         mScannerView.stopCamera();
+    }
+
+    public String getImgURl(String rawText) {
+
+        String text = rawText;
+        String[] split = text.split(";");
+        String[] arr = new String[3];
+        for (int i = 0; i < split.length; i++) {
+            arr[i] = split[i];
+        }
+        if (arr[0] != null) {
+            //System.out.println(arr[1]);
+            return arr[0];
+        } else {
+            return "Error occured!";
+        }
+    }
+
+    public String getText(String rawText) {
+
+        String text = rawText;
+        String[] split = text.split(";");
+        String[] arr = new String[3];
+        for (int i = 0; i < split.length; i++) {
+            arr[i] = split[i];
+        }
+        if (arr[1] != null) {
+            //System.out.println(arr[1]);
+            return arr[1];
+        } else {
+            return "Error occured!";
+        }
+
+    }
+
+    public String getSuggestedPrice(String rawText) {
+
+        String text = rawText;
+        String[] split = text.split(";");
+        String[] arr = new String[3];
+        for (int i = 0; i < split.length; i++) {
+            arr[i] = split[i];
+        }
+        if (arr[2] != null) {
+            //System.out.println(arr[1]);
+            return arr[2];
+        } else {
+            return "0";
+        }
+
     }
 }

@@ -95,6 +95,9 @@ public class HistoryActivity extends AppCompatActivity implements SwipeRefreshLa
                             Log.v("history", purchase.getImgUrl());
                             Log.v("history", purchase.getPurchaseTime());
                             Log.v("history", purchase.getUserid());
+                            Log.v("history", purchase.getRaw_url());
+                            Log.v("history", purchase.getDeal_name());
+                            Log.v("history", purchase.getSuggest_prices());
                             //Log.v("Divi", name.getProvID().toString());
 //                            HashMap_MainArea.put(name.getLocationName(), Integer.parseInt(name.getLocationID()));
 //                            MainArea.add(name.getLocationName());

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +46,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
         View v = null;
 
-        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.history_item_img, parent, false);
+        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.history_item_img2, parent, false);
 
         ViewHolder vh = new ViewHolder(v);
         context = parent.getContext();
@@ -59,10 +60,13 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 //        Log.v("split0",split[0]);
 //        Log.v("split1",split[1]);
         // holder.context.setText((position + 1) + ". " + historyList.get(position).getContext());
-        holder.context.setText((position + 1) + ". " + purchaseList.get(position).getText());
+//        holder.context.setText((position + 1) + ". " + purchaseList.get(position).getText());
+        holder.context.setText((position + 1) + ". " + purchaseList.get(position).getDeal_name());
         //imageLoader.displayImage(historyList.get(position).getContext(), holder.img);
-        imageLoader.displayImage(purchaseList.get(position).getURl(), holder.img);
-
+//        imageLoader.displayImage(purchaseList.get(position).getURl(), holder.img);
+        imageLoader.displayImage(purchaseList.get(position).getImgUrl(), holder.img);
+        Log.v("adapter", purchaseList.get(position).getURl());
+        holder.suggestedPrice.setText("Suggested Price: Rs " + purchaseList.get(position).getSuggest_prices());
 //        holder.date.setText(purchaseList.get(position).getDate());
         holder.date.setText(purchaseList.get(position).getPurchaseTime());
         holder.search.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +115,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView context, date;
+        public TextView context, date, suggestedPrice;
         public ImageView search, copy, share, img;
 
         public ViewHolder(View itemView) {
@@ -122,6 +126,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             search = itemView.findViewById(R.id.searchImageView);
             copy = itemView.findViewById(R.id.copyImageView);
             share = itemView.findViewById(R.id.shareImageView);
+            suggestedPrice = itemView.findViewById(R.id.suggestedPriceTextView);
         }
     }
 

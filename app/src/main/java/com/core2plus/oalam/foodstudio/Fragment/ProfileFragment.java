@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.core2plus.oalam.foodstudio.API.APICall.RetrofitClient;
 import com.core2plus.oalam.foodstudio.API.InsertResponse;
 import com.core2plus.oalam.foodstudio.API.ProfImgResponse;
+import com.core2plus.oalam.foodstudio.API.PurchasedAmountResponse;
 import com.core2plus.oalam.foodstudio.Entity.Constants;
 import com.core2plus.oalam.foodstudio.Entity.UserData;
 import com.core2plus.oalam.foodstudio.R;
@@ -50,6 +51,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.UUID;
 
 import retrofit2.Call;
@@ -65,7 +68,7 @@ import static android.app.Activity.RESULT_OK;
 public class ProfileFragment extends Fragment {
 
 
-    private TextView editProfile, profileNameTextView, profileEmailTextView, profilePhoneTextView, profileNameMainTextView;
+    private TextView editProfile, profileNameTextView, profileEmailTextView, profilePhoneTextView, profileNameMainTextView, profilePurchasedAmountTextView;
     ImageView imageViewProfile;
     private ImageView imageView;
     private FirebaseDatabase database;
@@ -117,13 +120,14 @@ public class ProfileFragment extends Fragment {
         profileEmailTextView = view.findViewById(R.id.profileEmail);
         profilePhoneTextView = view.findViewById(R.id.profilePhone);
         profileNameMainTextView = view.findViewById(R.id.profileNameMain);
+        profilePurchasedAmountTextView = view.findViewById(R.id.purchasedAmount);
         //sharedpreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         sharedpreferences = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
         String name = sharedpreferences.getString("name", null);
         String email = sharedpreferences.getString("email", null);
         String mobile = sharedpreferences.getString("mobile", null);
         final String userimg = sharedpreferences.getString("userimg", null);
-
+        getUserPurchasedAmount();
         if (name != null && email != null && mobile != null && userimg != null) {
 
             profileNameMainTextView.setText(name);
@@ -340,6 +344,29 @@ public class ProfileFragment extends Fragment {
         });
     }
 
+    private void getUserPurchasedAmount() {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Call<PurchasedAmountResponse> call = RetrofitClient.getInstance().getApi().getUserPurchasedAmount(userId);
+        call.enqueue(new Callback<PurchasedAmountResponse>() {
+            @Override
+            public void onResponse(Call<PurchasedAmountResponse> call, Response<PurchasedAmountResponse> response) {
+                PurchasedAmountResponse purchasedAmountResponse = response.body();
+                if (purchasedAmountResponse.getSuccess() != 0) {
+                    // profilePurchasedAmountTextView.setText("Rs "+purchasedAmountResponse.getPurchasedAmount());
+                    profilePurchasedAmountTextView.setText("Rs " + NumberFormat.getNumberInstance(Locale.ENGLISH).format(Integer.parseInt(purchasedAmountResponse.getPurchasedAmount())));
+//                SharedPreferences.Editor editor = sharedpreferences.edit();
+//                editor.putString("userimg", userimg);
+//
+//                editor.commit();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PurchasedAmountResponse> call, Throwable t) {
+
+            }
+        });
+    }
 
     private void getUserData2() {
         final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();

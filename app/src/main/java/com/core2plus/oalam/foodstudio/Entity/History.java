@@ -1,7 +1,5 @@
 package com.core2plus.oalam.foodstudio.Entity;
 
-import android.util.Log;
-
 /**
  * Created by zhakhanyergali on 21.11.17.
  */
@@ -32,51 +30,51 @@ public class History {
         return context;
     }
 
-    public String getURl(){
+    public String getURl() {
 
-        String text=context;
-        String[] split=text.split(";");
-        String[]arr=new String[2];
-        for(int i=0;i<split.length;i++){
-            arr[i]=split[i];
+        String text = context;
+        String[] split = text.split(";");
+        String[] arr = new String[2];
+        for (int i = 0; i < split.length; i++) {
+            arr[i] = split[i];
         }
-        if(arr[0]!=null){
+        if (arr[0] != null) {
             //System.out.println(arr[1]);
             return arr[0];
-        }else {
+        } else {
             return "Error occured!";
         }
     }
 
-    public String getText(){
+    public String getText() {
 
-        String text=context;
-        String[] split=text.split(";");
-        String[]arr=new String[2];
-        for(int i=0;i<split.length;i++){
-            arr[i]=split[i];
+        String text = context;
+        String[] split = text.split(";");
+        String[] arr = new String[2];
+        for (int i = 0; i < split.length; i++) {
+            arr[i] = split[i];
         }
-        if(arr[1]!=null){
+        if (arr[1] != null) {
             //System.out.println(arr[1]);
             return arr[1];
-        }else {
+        } else {
             return "Error occured!";
         }
 
     }
 
-    public String getPrice(){
+    public String getSuggestedPrice() {
 
-        String text=context;
-        String[] split=text.split(";");
-        String[]arr=new String[3];
-        for(int i=0;i<split.length;i++){
-            arr[i]=split[i];
+        String text = context;
+        String[] split = text.split(";");
+        String[] arr = new String[3];
+        for (int i = 0; i < split.length; i++) {
+            arr[i] = split[i];
         }
-        if(arr[2]!=null){
+        if (arr[2] != null) {
             //System.out.println(arr[1]);
             return arr[2];
-        }else {
+        } else {
             return "Error occured!";
         }
 

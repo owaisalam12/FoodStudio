@@ -6,8 +6,8 @@ android {
         applicationId "com.core2plus.oalam.foodstudio"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 6
-        versionName "0.3"
+        versionCode 7
+        versionName "0.0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -48,6 +48,8 @@ dependencies {
     implementation 'br.com.liveo:navigationdrawer-material:2.5.1'
     implementation 'com.facebook.shimmer:shimmer:0.4.0'
     implementation  'com.chootdev:blurimg:1.0.1'
+    implementation  'jp.wasabeef:blurry:3.0.0'
+    implementation  'com.github.jgabrielfreitas:BlurImageView:1.0.1'
     implementation 'com.github.dimorinny:floating-text-button:0.0.4'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

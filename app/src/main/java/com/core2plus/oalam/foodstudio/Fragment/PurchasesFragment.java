@@ -135,7 +135,7 @@ public class PurchasesFragment extends Fragment implements SwipeRefreshLayout.On
                             purchaseList.add(purchase);
                             adapter = new HistoryAdapter(purchaseList);
                             historyRecyclerView.setAdapter(adapter);
-                            Log.v("history", purchase.getImgUrl());
+                            Log.v("history", purchase.getURl());
                             Log.v("history", purchase.getPurchaseTime());
                             Log.v("history", purchase.getUserid());
                             //Log.v("Divi", name.getProvID().toString());
@@ -143,6 +143,12 @@ public class PurchasesFragment extends Fragment implements SwipeRefreshLayout.On
 //                            MainArea.add(name.getLocationName());
 //                            adapter5.notifyDataSetChanged();
                         }
+                    } else {
+                        Log.v("historypurch", purchaseResponse.getSuccess().toString());
+                        purchaseList.clear();
+                        adapter = new HistoryAdapter(purchaseList);
+                        historyRecyclerView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
                     }
                 }
 

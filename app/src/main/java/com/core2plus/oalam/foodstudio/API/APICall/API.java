@@ -4,6 +4,7 @@ import com.core2plus.oalam.foodstudio.API.DealResponse;
 import com.core2plus.oalam.foodstudio.API.InsertResponse;
 import com.core2plus.oalam.foodstudio.API.ProfImgResponse;
 import com.core2plus.oalam.foodstudio.API.PurchaseResponse;
+import com.core2plus.oalam.foodstudio.API.PurchasedAmountResponse;
 import com.core2plus.oalam.foodstudio.API.SliderResponse;
 
 import retrofit2.Call;
@@ -11,7 +12,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 public interface API {
 
@@ -23,7 +23,7 @@ public interface API {
 
     @FormUrlEncoded
     @POST("?fx=insertpurchase")
-    Call<InsertResponse> insertpurchase(@Field("userid") String user_id, @Field("img_url") String img_url, @Field("purchaseTime") String purchaseTime,
+    Call<InsertResponse> insertpurchase(@Field("userid") String user_id, @Field("raw_url") String raw_url, @Field("deal_name") String deal_name, @Field("img_url") String img_url, @Field("suggest_prices") String suggest_prices, @Field("purchaseTime") String purchaseTime,
                                         @Field("blockTime") String blockTime);
 
     @GET("?fx=getdeals")
@@ -32,8 +32,9 @@ public interface API {
     @GET("?fx=getdealsUpcoming")
     Call<DealResponse> getdealsUpcoming();
 
-    @GET("?fx=getPurchasebyUserId")
-    Call<PurchaseResponse> getPurchasebyUserId(@Query("userid") String user_id);
+    @FormUrlEncoded
+    @POST("?fx=getPurchasebyUserId")
+    Call<PurchaseResponse> getPurchasebyUserId(@Field("userid") String user_id);
 
     @GET("?fx=getslider")
     Call<SliderResponse> getSlider();
@@ -50,4 +51,9 @@ public interface API {
     @FormUrlEncoded
     @POST("?fx=getUserImg")
     Call<ProfImgResponse> getUserImg(@Field("userid") String user_id);
+
+    @FormUrlEncoded
+    @POST("?fx=getUserPurchasedAmount")
+    Call<PurchasedAmountResponse> getUserPurchasedAmount(@Field("userid") String user_id);
+
 }

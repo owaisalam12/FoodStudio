@@ -79,11 +79,9 @@ public class DashboardActivity extends NavigationLiveo implements OnItemClickLis
 
         getUserData();
         getUserImg();
-
 //        }
 
         //this.userPhoto.setImageResource(R.drawable.prof);
-
         this.userBackground.setImageResource(R.drawable.ic_user_background_second);
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -228,6 +226,8 @@ public class DashboardActivity extends NavigationLiveo implements OnItemClickLis
                     editor.commit();
 
                     Log.v("profuri", userimg);
+                } else {
+                    setSideImageDummy();
                 }
 
             }
@@ -247,7 +247,9 @@ public class DashboardActivity extends NavigationLiveo implements OnItemClickLis
     private void setSideImage(String img) {
         imageLoader = ImageLoader.getInstance();
         imageLoader.displayImage(img, this.userPhoto);
+    }
 
-
+    private void setSideImageDummy() {
+        this.userPhoto.setImageResource(R.drawable.userdummy);
     }
 }
